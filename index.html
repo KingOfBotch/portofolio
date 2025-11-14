@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Fahrul Rozi | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ===== Reset & Base ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  line-height:1.45;
+  transition:background .6s ease,color .6s ease;
+}
+
+/* ===== Theme Vars ===== */
+:root{
+  --milan-red:#A50021;
+  --milan-red-deep:#b20021;
+  --dark-start:#0a0a0a; --dark-mid:#200004; --dark-end:#400008;
+  --light-text:#111; --dark-text:#f5f7fb;
+  --maxw:1100px; --smooth:cubic-bezier(.2,.9,.2,1);
+}
+
+/* Light: jersey-away stripes */
+body{
+  color:var(--light-text);
+  background-image: repeating-linear-gradient(
+    90deg, #ffffff 0, #ffffff 60px, #f2f2f2 60px, #f2f2f2 61px
+  );
+  background-attachment: fixed;
+}
+body.dark{
+  color:var(--dark-text);
+  background: linear-gradient(135deg,var(--dark-start) 0%, var(--dark-mid) 35%, var(--dark-end) 100%);
+  background-attachment: fixed;
+}
+/* subtle vertical accents for dark */
+body.dark::before{
+  content:""; position:fixed; inset:0; z-index:-1;
+  background: repeating-linear-gradient(
+    90deg, rgba(165,0,33,0.10) 0, rgba(165,0,33,0.10) 64px,
+    rgba(0,0,0,0.28) 64px, rgba(0,0,0,0.28) 128px
+  );
+  mix-blend-mode:overlay; pointer-events:none;
+}
+
+/* ===== Header / Nav ===== */
+header{position:fixed;top:12px;left:0;right:0;z-index:60}
+.header-inner{
+  max-width:var(--maxw); margin:0 auto; padding:10px 14px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-radius:12px; backdrop-filter:blur(8px);
+  background:rgba(255,255,255,.78); box-shadow:0 8px 24px rgba(0,0,0,.08);
+  transition:transform .35s, box-shadow .35s;
+}
+body.dark .header-inner{background:rgba(10,10,10,.7); box-shadow:0 10px 30px rgba(0,0,0,.55)}
+header.scrolled .header-inner{transform:translateY(-4px); box-shadow:0 16px 34px rgba(0,0,0,.15)}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .dot{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:700;
+  background:linear-gradient(180deg,var(--milan-red),var(--milan-red-deep))}
+.brand h1{font-size:1rem;color:var(--milan-red);letter-spacing:.6px}
+nav{display:flex;gap:18px;align-items:center}
+nav a{color:inherit;text-decoration:none;font-weight:600;position:relative;padding:6px 4px}
+nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:var(--milan-red);transition:width .25s}
+nav a:hover::after{width:100%}
+#themeBtn{
+  background:var(--milan-red);color:#fff;border:none;border-radius:10px;
+  padding:8px 12px;cursor:pointer;font-weight:700;
+  box-shadow:0 10px 22px rgba(165,0,33,.18)
+}
+
+/* ===== Layout ===== */
+main{max-width:var(--maxw);margin:0 auto;padding:120px 20px 40px}
+
+/* ===== Hero ===== */
+.hero{min-height:56vh;display:grid;place-items:center;text-align:center;margin-top:10px}
+.hero h2{font-size:2.2rem;color:var(--milan-red);margin-bottom:8px}
+.hero p{max-width:760px;margin:0 auto;opacity:.95}
+.hero .download{display:inline-block;margin-top:18px;padding:10px 16px;background:var(--milan-red);color:#fff;
+  border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 10px 26px rgba(165,0,33,.16)}
+.typing{font-weight:600}
+
+/* ===== Sections base (reveal) ===== */
+.section{margin:46px 0;opacity:0;transform:translateY(18px);transition:all .75s var(--smooth)}
+.section.visible{opacity:1;transform:none}
+
+/* ===== ABOUT CARD (with avatar) ===== */
+.about-card{
+  display:flex;gap:20px;align-items:flex-start;
+  background:#fff;color:#111;border-radius:14px;padding:18px 18px;
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+  flex-wrap: wrap;
+}
+body.dark .about-card{
+  background:rgba(255,255,255,.06);color:var(--dark-text);
+  box-shadow:0 12px 30px rgba(0,0,0,.55)
+}
+
+.about-card .avatar-box {
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid var(--milan-red);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+  flex-shrink: 0;
+  margin-top: 30px;
+}
+
+.about-card .avatar-box img {
+  width: 100%;    
+  height: 100%;   
+  object-fit: cover;
+  display: block; 
+}
+
+
+.about-text{
+  flex: 1; 
+}
+.about-text h3{margin:0 0 6px;color:var(--milan-red)}
+.about-actions{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  padding:9px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700
+}
+.btn-primary{background:var(--milan-red);color:#fff;box-shadow:0 10px 20px rgba(165,0,33,.18);text-decoration:none;display:inline-block}
+
+/* ===== SKILLS (horizontal scroller) ===== */
+.skills-wrap{position:relative;margin-top:12px}
+.skills-scroller{
+  display:flex; gap:16px;
+  overflow-x:auto; overflow-y:visible;
+  padding:8px 6px 12px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.skills-scroller::-webkit-scrollbar{display:none}
+.skill-card{min-width:180px; scroll-snap-align:start}
+
+.skill-card{
+  background:#fff;color:#111;border-top:4px solid var(--milan-red);
+  padding:18px;border-radius:14px;text-align:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);transition:transform .3s
+}
+body.dark .skill-card{
+  background:rgba(255,255,255,.08);color:#fff;
+  box-shadow:0 10px 26px rgba(0,0,0,.45)
+}
+.skill-card:hover{transform:translateY(-6px)}
+.skill-card img{width:48px;height:48px;margin-bottom:10px}
+.skill-card h4{margin:6px 0;font-size:1rem}
+.skill-level{height:10px;background:rgba(0,0,0,.08);border-radius:8px;overflow:hidden;margin-top:10px}
+body.dark .skill-level{background:rgba(255,255,255,.16)}
+.skill-level span{display:block;height:100%;width:0;border-radius:8px;transition:width 1.1s var(--smooth)}
+.skill-note{margin-top:8px;font-size:13px;opacity:.85}
+
+/* Edge fade (indikasi bisa geser) */
+.edge-fade::before,.edge-fade::after{
+  content:""; position:absolute; top:0; bottom:0; width:40px; pointer-events:none; z-index:1;
+}
+.edge-fade::before{left:0; background:linear-gradient(90deg, rgba(255,255,255,.9), rgba(255,255,255,0))}
+.edge-fade::after{right:0; background:linear-gradient(270deg, rgba(255,255,255,.9), rgba(255,255,255,0))}
+body.dark .edge-fade::before{background:linear-gradient(90deg, rgba(10,10,10,.92), rgba(10,10,10,0))}
+body.dark .edge-fade::after{background:linear-gradient(270deg, rgba(10,10,10,.92), rgba(10,10,10,0))}
+
+/* === Brand colors for skill cards === */
+.skill-card { --brand: var(--milan-red); } /* default */
+.skill-card[data-brand="html"]      { --brand:#E44D26; }
+.skill-card[data-brand="css"]       { --brand:#1572B6; }
+.skill-card[data-brand="js"]        { --brand:#F7DF1E; }
+.skill-card[data-brand="react"]     { --brand:#61DAFB; }
+.skill-card[data-brand="mysql"]     { --brand:#00618A; }
+.skill-card[data-brand="word"]      { --brand:#185ABD; }
+.skill-card[data-brand="excel"]     { --brand:#107C41; }
+.skill-card[data-brand="powerpoint"]{ --brand:#D24726; }
+.skill-card[data-brand="gdocs"]     { --brand:#4285F4; }
+.skill-card[data-brand="gsheets"]   { --brand:#0F9D58; }
+.skill-card[data-brand="dataentry"] { --brand:#A50021; } /* Milan red */
+.skill-card { border-top:4px solid var(--brand); }
+.skill-level span{
+  background: linear-gradient(90deg, var(--brand), rgba(0,0,0,.18));
+}
+
+/* ===== Projects (uniform & tidy) ===== */
+.projects-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;align-items:stretch
+}
+.card{
+  display:flex;flex-direction:column;
+  background:#fff;color:#111;border-radius:14px;overflow:hidden;
+  box-shadow:0 10px 24px rgba(0,0,0,.08);transition:transform .28s
+}
+body.dark .card{background:rgba(255,255,255,.06);color:var(--dark-text);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.card:hover{transform:translateY(-6px)}
+.card .thumb{
+  width:100%; aspect-ratio:16/9; object-fit:cover; display:block;
+  background:#ddd
+}
+.card-body{
+  padding:14px 16px; flex:1; display:flex; flex-direction:column; gap:8px;
+}
+.card h4{color:var(--milan-red);margin:0}
+.card p{opacity:.95;line-height:1.5}
+.cta{
+  margin-top:auto;
+  display:block;text-align:center;text-decoration:none;
+  background:var(--milan-red);color:#fff;font-weight:700;
+  padding:10px 12px;border-radius:0 0 14px 14px;
+  transition:background .25s
+}
+.cta:hover{background:#9d001f}
+
+/* ===== Footer (ikon + kontras tinggi) ===== */
+footer{
+  margin-top:54px;padding:32px 20px;text-align:center;
+  background:rgba(0,0,0,.05); transition:background .4s
+}
+body.dark footer{background:rgba(255,255,255,.06)}
+footer h3{color:var(--milan-red);margin-bottom:12px}
+.contact-wrap{
+  display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap
+}
+.contact-pill{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 14px;border-radius:12px;text-decoration:none;font-weight:600;
+  border:1px solid rgba(0,0,0,.08); color:#111; background:#fff;
+}
+.contact-pill .icon{font-size:18px}
+.contact-pill:hover{color:var(--milan-red);border-color:var(--milan-red)}
+body.dark .contact-pill{
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); color:#fff;
+}
+body.dark .contact-pill:hover{color:#fff; background:rgba(165,0,33,.25); border-color:rgba(165,0,33,.55)}
+footer small{display:block;margin-top:12px;opacity:.85}
+
+/* Back to top */
+#backTop{
+  position:fixed;right:18px;bottom:18px;width:44px;height:44px;border:none;border-radius:50%;
+  background:var(--milan-red);color:#fff;display:none;align-items:center;justify-content:center;
+  box-shadow:0 12px 30px rgba(165,0,33,.18);cursor:pointer
+}
+
+/* ===== DARK MODE READABILITY FIX ===== */
+body.dark .section h3,
+body.dark .section-title,
+body.dark h3 { 
+  color: #f5f7fb;
+  text-shadow: 0 1px 1px rgba(0,0,0,.25);
+}
+body.dark .about-card,
+body.dark .about-card p { color: #e9edf3; }
+body.dark .skill-card h4,
+body.dark .skill-note { color: #eef2f7; }
+body.dark .card { background: rgba(15,15,15,.92); color: #e9edf3; }
+body.dark .card p { color: #e6eaf0; }
+body.dark .cta { color: #fff; }
+body.dark .contact-pill,
+body.dark .contact-pill span { color: #fff; }
+
+/* Responsive */
+@media (max-width:900px){
+  nav{display:none}
+  .hero{padding:0 14px}
+}
+@media (max-width:700px){
+  .about-card{flex-direction:column;text-align:center}
+  .avatar-box{width:96px;height:96px}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header id="hdr">
+  <div class="header-inner">
+    <div class="brand">
+  <img src="./FR-Logos.png?v=123" alt="FR-Logo" class="brand-logo" width="44" height="44">
+  <h1>Fahrul Rozi</h1>
+</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button id="themeBtn" title="Switch theme">🌗</button>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero" id="about">
+    <div>
+      <h2>Fahrul Rozi</h2>
+      <p>Fresh Graduate — Informatika Komputer. <span class="typing" id="typed"></span></p>
+    </div>
+  </section>
+
+  <!-- ABOUT CARD with Avatar -->
+  <section class="section" aria-labelledby="aboutme-title">
+  <div class="about-card">
+    <div class="avatar-box" aria-hidden="true">
+      <img src="./avatar.png" alt="Fahrul Rozi Avatar" width="180" height="180">
+    </div>
+    <div class="about-text">
+      <h3 id="aboutme-title">About Me</h3>
+      <p>A fresh graduate with an Associate's Degree in Computer Informatics from Politeknik LP3I Jakarta, equipped with skills in full-stack development using HTML, CSS, JavaScript, PHP, React.js, Node.js, and MySQL. Currently enhancing technical expertise through a Full-Stack Web Developer bootcamp, focusing on strengthening both front-end and back-end capabilities. Passionate about building scalable web applications and delivering seamless user experiences through well-structured, responsive designs. Detail-oriented, adaptable, and committed to continuous learning and innovative problem-solving. </p>
+      <div class="about-actions">
+        <a class="btn btn-primary" href="CV_Fahrul_Rozi.docx" download>📄 Download CV</a>
+        <a class="btn" href="#projects" style="border:1px solid var(--milan-red);color:var(--milan-red);background:#fff">Lihat Projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Skills (horizontal scroller) -->
+  <section id="skills" class="section">
+    <h3 style="text-align:center;color:var(--milan-red);margin-bottom:6px">Skills</h3>
+
+    <div class="skills-wrap edge-fade">
+      <div class="skills-scroller" id="skillsScroller">
+        <!-- Web Dev -->
+        <div class="skill-card" data-brand="html">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg" alt="HTML">
+          <h4>HTML</h4>
+          <div class="skill-level"><span data-level="70%"></span></div>
+          <div class="skill-note">Intermediate</div>
+        </div>
+
+        <div class="skill-card" data-brand="css">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg" alt="CSS">
+          <h4>CSS</h4>
+          <div class="skill-level"><span data-level="55%"></span></div>
+          <div class="skill-note">Intermediate</div>
+        </div>
+
+        <div class="skill-card" data-brand="js">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+          <h4>JavaScript</h4>
+          <div class="skill-level"><span data-level="25%"></span></div>
+          <div class="skill-note">Elementary</div>
+        </div>
+
+        <div class="skill-card" data-brand="react">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+          <h4>React</h4>
+          <div class="skill-level"><span data-level="40%"></span></div>
+          <div class="skill-note">Elementary</div>
+        </div>
+
+        <div class="skill-card" data-brand="mysql">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+          <h4>MySQL</h4>
+          <div class="skill-level"><span data-level="70%"></span></div>
+          <div class="skill-note">Intermediate</div>
+        </div>
+
+        <!-- Office & Admin -->
+       <div class="skill-card" data-brand="word">
+          <img src="https://www.svgrepo.com/show/374187/word.svg" alt="Word SVG Vector Icon">
+          <h4>Microsoft Word</h4>
+          <div class="skill-level"><span data-level="65%"></span></div>
+          <div class="skill-note">Intermediate</div>
+        </div>
+
+        <div class="skill-card" data-brand="excel">
+          <img src="https://www.svgrepo.com//show/452066/ms-excel.svg" alt="Ms Excel SVG Vector Icon">
+          <h4>Microsoft Excel</h4>
+          <div class="skill-level"><span data-level="40%"></span></div>
+          <div class="skill-note">Intermediate (basic formulas)</div>
+        </div>
+
+        <div class="skill-card" data-brand="powerpoint">
+          <img src="https://www.svgrepo.com/show/373989/powerpoint.svg" alt="Powerpoint SVG Vector Icon">
+          <h4>PowerPoint</h4> <div class="skill-level"><span data-level="50%"></span></div>
+          <div class="skill-note">Intermediate</div>
+        </div>
+
+        <div class="skill-card" data-brand="gdocs">
+          <img src="https://cdn.simpleicons.org/googledocs/4285F4" alt="Google Docs">
+          <h4>Google Docs</h4>
+          <div class="skill-level"><span data-level="65%"></span></div>
+          <div class="skill-note">Intermediate</div>
+        </div>
+
+        <div class="skill-card" data-brand="gsheets">
+          <img src="https://cdn.simpleicons.org/googlesheets/0F9D58" alt="Google Sheets">
+          <h4>Google Sheets</h4>
+          <div class="skill-level"><span data-level="45%"></span></div>
+          <div class="skill-note">Intermediate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section">
+    <h3 style="text-align:center;margin-bottom:12px">Projects</h3>
+    <div class="projects-grid">
+      
+      <article class="card">
+        <img class="thumb" src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=1200&q=60" alt="KPI preview">
+        <div class="card-body">
+          <h4>Virtual KPI Project</h4>
+          <p>Project KPI berbasis web dari Harisenin Virtual Base Project.</p>
+          <a class="cta" href="https://github.com/AshWhite2/KPI2.git" target="_blank" rel="noopener">View Project</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img class="thumb" src="./Gambar2.png" alt="E-learning preview">
+        <div class="card-body">
+          <h4>E-Learning Platform</h4>
+          <p>Platform pembelajaran online dengan fitur course & user management.</p>
+          <a class="cta" href="https://github.com/KingOfBotch/F.King.git" target="_blank" rel="noopener">View Project</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img class="thumb" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=60" alt="Final project preview">
+        <div class="card-body">
+          <h4>Project Tugas Akhir</h4>
+          <p>Implementasi sistem atau aplikasi yang menjadi fokus utama dalam penyelesaian studi Diploma.</p>
+          <a class="cta" href="https://github.com/KingOfBotch/tugasakhir" target="_blank" rel="noopener">View Project</a>
+        </div>
+      </article>
+      
+      <article class="card">
+        <img class="thumb" src="./Gambar1.png" alt="To-Do List app preview">
+        <div class="card-body">
+          <h4>To-Do List App</h4>
+          <p>Aplikasi daftar tugas sederhana berbasis web dengan fitur menambah, menghapus, dan menandai tugas selesai.</p>
+          <a class="cta" href="https://fahrul4.vercel.app/" target="_blank" rel="noopener">View Project</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer id="contact">
+  <h3>Contact</h3>
+  <div class="contact-wrap" style="margin-top:10px">
+    <a class="contact-pill" href="mailto:fahrulrozi971@gmail.com">
+      <span class="icon">📧</span><span>fahrulrozi971@gmail.com</span>
+    </a>
+    <a class="contact-pill" href="https://wa.me/6283879080311" target="_blank" rel="noopener">
+      <span class="icon">🟢</span><span>WhatsApp: 0838-7908-0311</span>
+    </a>
+  </div>
+  <div class="contact-wrap" style="margin-top:10px">
+    <a class="contact-pill" href="https://github.com/KingOfBotch" target="_blank" rel="noopener">🧑‍💻 GitHub</a>
+    <a class="contact-pill" href="https://www.linkedin.com/in/fahrul-rozii/" target="_blank" rel="noopener">💼 LinkedIn</a>
+  </div>
+  <small style="display:block;margin-top:12px;opacity:.85">Designed & Built by Fahrul Rozi © 2025</small>
+</footer>
+
+<button id="backTop" title="Back to top">⬆</button>
+
+<script>
+/* Theme toggle (persist) */
+const themeBtn = document.getElementById('themeBtn');
+const saved = localStorage.getItem('fr_theme');
+if(saved === 'dark') document.body.classList.add('dark');
+themeBtn.addEventListener('click', ()=>{
+  document.body.classList.toggle('dark');
+  localStorage.setItem('fr_theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+});
+
+/* Sticky header on scroll */
+const hdr = document.getElementById('hdr');
+window.addEventListener('scroll', () => {
+  if(window.scrollY > 20) hdr.classList.add('scrolled');
+  else hdr.classList.remove('scrolled');
+});
+
+/* Typing effect */
+const typed = document.getElementById('typed');
+const lines = ['Full-Stack Developer', 'HTML • CSS • JavaScript', 'React & MySQL'];
+let li = 0, ci = 0, fwd = true;
+(function loop(){
+  const t = lines[li];
+  if(fwd){ ci++; typed.textContent = t.slice(0,ci); if(ci===t.length){ fwd=false; return setTimeout(loop,900);} }
+  else { ci--; typed.textContent = t.slice(0,ci); if(ci===0){ fwd=true; li=(li+1)%lines.length; return setTimeout(loop,300);} }
+  setTimeout(loop,80);
+})();
+
+/* Reveal on scroll */
+const revealEls = document.querySelectorAll('.section');
+function reveal(){
+  const thr = window.innerHeight * .82;
+  revealEls.forEach(el=>{
+    if(el.getBoundingClientRect().top < thr) el.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', reveal); reveal();
+
+/* Skill bars fill on view (works for horizontal scroller too) */
+const bars = document.querySelectorAll('.skill-level span');
+function fillBars(){
+  const section = document.getElementById('skills');
+  if(!section) return;
+  const secRect = section.getBoundingClientRect();
+  const inViewport = secRect.top < window.innerHeight && secRect.bottom > 0;
+  if(!inViewport) return;
+  bars.forEach(b=>{
+    if(b.dataset.filled) return;
+    const lvl = b.getAttribute('data-level') || '60%';
+    b.style.width = lvl;
+    b.dataset.filled = '1';
+    const card = b.closest('.skill-card');
+    if(card){
+      const brand = getComputedStyle(card).getPropertyValue('--brand').trim() || '#A50021';
+      b.style.background = `linear-gradient(90deg, ${brand}, rgba(0,0,0,0.18))`;
+    }
+  });
+}
+window.addEventListener('scroll', fillBars);
+fillBars();
+
+/* Horizontal scroll enhancements for skills */
+(function(){
+  const scroller = document.getElementById('skillsScroller');
+  if(!scroller) return;
+
+  /* Wheel -> horizontal scroll */
+  scroller.addEventListener('wheel',(e)=>{
+    if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+      scroller.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }
+  }, {passive:false});
+
+  /* Drag to scroll (mouse) */
+  let isDown=false, startX=0, startLeft=0;
+  scroller.addEventListener('mousedown', (e)=>{
+    isDown=true; startX=e.pageX; startLeft=scroller.scrollLeft;
+    scroller.style.cursor='grabbing';
+  });
+  window.addEventListener('mouseup', ()=>{
+    isDown=false; scroller.style.cursor='';
+  });
+  scroller.addEventListener('mousemove', (e)=>{
+    if(!isDown) return;
+    const walk=(e.pageX - startX)*1.2;
+    scroller.scrollLeft = startLeft - walk;
+  });
+
+  /* Trigger fill when scroller is used */
+  scroller.addEventListener('scroll', fillBars);
+})();
+
+/* Back to Top */
+const back = document.getElementById('backTop');
+window.addEventListener('scroll', ()=> back.style.display = window.scrollY>420 ? 'flex':'none');
+back.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+</script>git
+</body>
+</html>
